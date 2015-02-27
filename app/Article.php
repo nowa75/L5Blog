@@ -4,34 +4,49 @@
 use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Article
  *
  * @package App
  */
-class Article extends Eloquent {
+class Article extends Model {
 
-    // mass asigment
+    /**
+     * anti mass assignment
+     *
+     * @var array
+     */
     protected $fillable = [
         'title',
         'body',
         'published_at'
     ];
 
-    // as carbon instance
+
+    /**
+     * published_at as carbon instance
+     * @var array
+     */
     protected $dates = [ 'published_at' ];
 
-    // convention setNameAttribute
+
+    /**
+     * convention setNameAttribute
+     * @param $date
+     */
     public function setPublishedAtAttribute( $date )
     {
         $this->attributes[ 'published_at' ] = Carbon::parse( $date );
+        $this->attributes[ 'user_id' ]      = 1;//!
 
     }
 
-    // OPUBLIKOWANE convention scopeName
     /**
-     * @param Eloquent|Builder $query
+     * OPUBLIKOWANE convention scopeName
+     *
+*@param Eloquent|Builder $query
      *
      * @return Builder $query
      */
@@ -40,10 +55,25 @@ class Article extends Eloquent {
         $query->where( 'published_at', '<=', Carbon::now() );
     }
 
-    // NIE OPUBLIKOWANE
-    public function scopeUnpublished( Eloquent $query )
+
+    /**
+     * NIE OPUBLIKOWANE
+     *
+     * @param Builder $query
+     */
+    public function scopeUnpublished( Builder $query )
     {
         $query->where( 'published_at', '>', Carbon::now() );
+    }
+
+    /**
+     * An Article is owned by User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        $this->belongsTo( 'App\User' );
     }
 
 }
