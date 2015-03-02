@@ -56,12 +56,14 @@ class ArticlesController extends Controller {
      * validation from App\Http\Requests\ArticleRequest
      *
      * @param ArticleRequest $request
+     * @method \App\Article| $articles
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+*@return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store( ArticleRequest $request )
     {
-        Article::create( $request->all() );
+        $article = new Article( $request->all() );
+        \Auth::user()->articles()->save( $article );
 
         return Redirect( 'articles' );
     }

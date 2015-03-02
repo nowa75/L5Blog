@@ -39,7 +39,6 @@ class Article extends Model {
     public function setPublishedAtAttribute( $date )
     {
         $this->attributes[ 'published_at' ] = Carbon::parse( $date );
-        $this->attributes[ 'user_id' ]      = 1;//!
 
     }
 
