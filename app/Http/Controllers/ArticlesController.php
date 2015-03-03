@@ -12,6 +12,9 @@ use App\Http\Requests\ArticleRequest;
  */
 class ArticlesController extends Controller {
 
+    /**
+     * user must be authenticated for all method, except Index view
+     */
     public function __construct()
     {
         //checks user is authenticated if not redirect to login page
@@ -69,12 +72,26 @@ class ArticlesController extends Controller {
         return Redirect( 'articles' );
     }
 
+    /**
+     * Edit article view
+     *
+     * @param Article $article
+     *
+     * @return $this
+     */
     public function edit( Article $article )
     {
 
         return view( 'articles.edit' )->with( 'article', $article );
     }
 
+    /**
+     * Save updated article
+     * @param Article        $article
+     * @param ArticleRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function update( Article $article, ArticleRequest $request )
     {
         $article->update( $request->all() );
