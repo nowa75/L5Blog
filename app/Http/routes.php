@@ -28,7 +28,7 @@ Route::controllers( [
  |--------------------------------------------------------------------------
  */
 Route::get( 'about', 'PagesController@about' );
-Route::get( 'contact', 'PagesController@contact' );
+Route::get( 'contact', [ 'middleware' => 'auth', 'uses' => 'PagesController@contact' ] );
 
 /*
  |--------------------------------------------------------------------------
@@ -43,3 +43,9 @@ Route::get( 'contact', 'PagesController@contact' );
 //Route::get('articles/{id}/edit', 'ArticlesController@edit');
 
 Route::resource( 'articles', 'ArticlesController' );
+
+Route::get( 'foo', [ 'middleware' => 'manager', function ()
+{
+    return 'manager';
+}
+] );

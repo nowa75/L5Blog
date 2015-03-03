@@ -12,10 +12,14 @@ use App\Http\Requests\ArticleRequest;
  */
 class ArticlesController extends Controller {
 
+    public function __construct()
+    {
+        //checks user is authenticated if not redirect to login page
+        $this->middleware( 'auth', [ 'except' => 'index' ] );
+    }
+
     /**
      * wyświetla wszystkie opublikowane artykuły
-     * @method Article published
-     *
      * @return \Illuminate\View\View
      */
     public function index()
@@ -56,9 +60,8 @@ class ArticlesController extends Controller {
      * validation from App\Http\Requests\ArticleRequest
      *
      * @param ArticleRequest $request
-     * @method \App\Article| $articles
      *
-*@return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store( ArticleRequest $request )
     {
