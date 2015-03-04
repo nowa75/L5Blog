@@ -3,6 +3,7 @@
 use App\Article;
 use App\Http\Requests;
 use App\Http\Requests\ArticleRequest;
+use Auth;
 
 
 /**
@@ -66,8 +67,9 @@ class ArticlesController extends Controller {
      */
     public function store( ArticleRequest $request )
     {
-        $article = new Article( $request->all() );
-        \Auth::user()->articles()->save( $article );
+        Auth::user()->articles()->create( $request->all() );
+        //        Session::flash('flashMessage','Your article has been created');
+        flash()->overlay( 'Your article has been created', 'Good Job!' );
 
         return Redirect( 'articles' );
     }
@@ -96,6 +98,6 @@ class ArticlesController extends Controller {
     {
         $article->update( $request->all() );
 
-        return redirect( 'articles' );
+        return redirect( 'articles' )->with( [ 'flashMessage' => 'updated' ] );
     }
 }
