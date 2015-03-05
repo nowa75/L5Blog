@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Article whereExcerpt( $value )
  * @method static \App\Article published()
  * @method static \App\Article unpublished()
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $tags
  */
 class Article extends Model {
 
@@ -46,6 +47,7 @@ class Article extends Model {
 
     /**
      * published_at as carbon instance
+     *
      * @var array
      */
     protected $dates = [ 'published_at' ];
@@ -53,6 +55,7 @@ class Article extends Model {
 
     /**
      * convention setNameAttribute
+     *
      * @param $date
      */
     public function setPublishedAtAttribute( $date )
@@ -64,7 +67,7 @@ class Article extends Model {
     /**
      * OPUBLIKOWANE convention scopeName
      *
-*@param Eloquent|Builder $query
+     * @param Eloquent|Builder $query
      *
      * @return Builder $query
      */
@@ -91,7 +94,16 @@ class Article extends Model {
      */
     public function user()
     {
-        $this->belongsTo( 'App\User' );
+        return $this->belongsTo( 'App\User' );
     }
 
+    /**
+     * Get the tags associated with the given article
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany( 'App\Tag' )->withTimestamps();
+    }
 }
