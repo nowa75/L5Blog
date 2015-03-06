@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{!! asset('css/all.css') !!}">
 </head>
 <body>
-
+@include('partial.nav')
 <div class="container">
     @include('flash::message')
     @yield('content')

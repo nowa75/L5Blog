@@ -15,7 +15,7 @@ elixir(function (mix) {
     mix.sass('app.scss', 'resources/css');
 
     mix.styles([
-        'libs/bootstrap.min.css',
+        'libs/bootstrapKooler.min.css',
         'app.css',
         'libs/select2.min.css'
     ]);
