@@ -43,6 +43,7 @@ Route::get( 'contact', [ 'middleware' => 'auth', 'uses' => 'PagesController@cont
 //Route::get('articles/{id}/edit', 'ArticlesController@edit');
 
 Route::resource( 'articles', 'ArticlesController' );
+Route::resource( 'tags', 'TagsController' );
 
 Route::get( 'foo', [ 'middleware' => 'manager', function ()
 {

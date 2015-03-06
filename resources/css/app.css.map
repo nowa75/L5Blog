@@ -1,0 +1,15 @@
+{
+  "version": 3,
+  "sources": [
+    "app.scss",
+    "app.css"
+  ],
+  "names": [],
+  "mappings": "AACA;EACE,oBAAU;EACE,kBAAA,EAAA;;AAGd;ECDE,qCAAoC;EDGpC,qBAAe,EAAA;;AAGjB;EACE,oBAAU;EACV,WAAQ;EACD,aAAA;ECFP,8CAA6C;EDIrC,cAAA;EACR,2BAAkB,EAAA",
+  "file": "app.css",
+  "sourcesContent": [
+    "//moje\nhtml {\n  position: relative;\n  min-height: 100%;\n}\n\nbody {\n  /* Margin bottom by footer height */\n  margin-bottom: 80px;\n}\n\n.footer {\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n  /* Set the fixed height of the footer here */\n  height: 60px;\n  background-color: #f5f5f5;\n}\n//END moje",
+    ".footer {\n    position: absolute;\n    bottom: 0;\n    width: 100%;\n    /* Set the fixed height of the footer here */\n    height: 60px;\n    background-color: #f5f5f5;\n}"
+  ],
+  "sourceRoot": "/source/"
+}

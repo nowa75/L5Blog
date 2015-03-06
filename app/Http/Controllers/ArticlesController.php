@@ -3,6 +3,7 @@
 use App\Article;
 use App\Http\Requests;
 use App\Http\Requests\ArticleRequest;
+use App\Tag;
 use Auth;
 
 
@@ -14,6 +15,7 @@ use Auth;
 class ArticlesController extends Controller {
 
     /**
+     * Create a new ArticleController instance.
      * user must be authenticated for all method, except Index view
      */
     public function __construct()
@@ -42,7 +44,6 @@ class ArticlesController extends Controller {
      */
     public function show( Article $article )
     {
-
         return view( 'articles.show', compact( 'article' ) );
     }
 
@@ -53,7 +54,9 @@ class ArticlesController extends Controller {
      */
     public function create()
     {
-        return view( 'articles.create' );
+        $tags = Tag::lists( 'name', 'id' );
+
+        return view( 'articles.create', compact( 'tags' ) );
     }
 
     /**
@@ -67,7 +70,9 @@ class ArticlesController extends Controller {
      */
     public function store( ArticleRequest $request )
     {
-        Auth::user()->articles()->create( $request->all() );
+
+        $this->createArticle( $request );
+
         //        Session::flash('flashMessage','Your article has been created');
         flash()->overlay( 'Your article has been created', 'Good Job!' );
 
@@ -75,20 +80,48 @@ class ArticlesController extends Controller {
     }
 
     /**
+     * Save a new Article.
+     *
+     * @param ArticleRequest $request
+     *
+     * @return Article
+     */
+    private function createArticle( ArticleRequest $request )
+    {
+        $article = Auth::user()->articles()->create( $request->all() );
+
+        $this->syncTags( $article, $request->input( 'tag_list' ) );
+
+        return $article;
+    }
+
+    /**
+     * Sync up the lists of tags in the database.
+     *
+     * @param Article $article
+     * @param Array   $tags
+     */
+    private function syncTags( Article $article, array $tags)
+    {
+        $article->tags()->sync( $tags );
+    }
+
+    /**
      * Edit article view
      *
      * @param Article $article
-     *
      * @return $this
      */
     public function edit( Article $article )
     {
 
-        return view( 'articles.edit' )->with( 'article', $article );
+        $tags = Tag::lists( 'name', 'id' );
+
+        return view( 'articles.edit' )->with( [ 'article' => $article, 'tags' => $tags ] );
     }
 
     /**
-     * Save updated article
+     * Save updated article and associated tags
      * @param Article        $article
      * @param ArticleRequest $request
      *
@@ -97,7 +130,9 @@ class ArticlesController extends Controller {
     public function update( Article $article, ArticleRequest $request )
     {
         $article->update( $request->all() );
+        $this->syncTags( $article, $request->input( 'tag_list' ) );
 
+        flash( 'Article <strong>"' . $article->title . '"</strong> successfully updated' );
         return redirect( 'articles' )->with( [ 'flashMessage' => 'updated' ] );
     }
 }

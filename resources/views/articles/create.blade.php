@@ -6,10 +6,10 @@
 
     <hr/>
 
+    @include('errors.list')
     {!! Form::open(['url' => 'articles']) !!}
     @include('articles.partial.form', ['submitButtonText' => 'Add Article'])
     {!! Form::close() !!}
 
-    @include('errors.list')
 
 @stop
