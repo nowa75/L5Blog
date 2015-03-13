@@ -37,6 +37,7 @@ Route::get( 'contact', [ 'middleware' => 'auth', 'uses' => 'PagesController@cont
 */
 Route::resource( 'articles', 'ArticlesController' );
 Route::resource( 'tags', 'TagsController' );
+Route::resource( 'items', 'ItemsController' );
 
 //Route::get( 'articles', 'ArticlesController@index' );
 //Route::get( 'articles/create', 'ArticlesController@create' );
