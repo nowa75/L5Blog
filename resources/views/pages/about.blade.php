@@ -11,5 +11,5 @@
         </ul>
     @endif
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, sed?</p>
-
+    <img src="http://placephant.com/301"/>
 @stop

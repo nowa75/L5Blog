@@ -12,10 +12,10 @@
 */
 
 /*
- |--------------------------------------------------------------------------
- | Authenticate
- |--------------------------------------------------------------------------
- */
+|--------------------------------------------------------------------------
+| Authenticate
+|--------------------------------------------------------------------------
+*/
 Route::controllers( [
     'auth'     => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
@@ -23,18 +23,20 @@ Route::controllers( [
 
 
 /*
- |--------------------------------------------------------------------------
- | Static page
- |--------------------------------------------------------------------------
- */
+|--------------------------------------------------------------------------
+| Static page
+|--------------------------------------------------------------------------
+*/
 Route::get( 'about', 'PagesController@about' );
 Route::get( 'contact', [ 'middleware' => 'auth', 'uses' => 'PagesController@contact' ] );
 
 /*
- |--------------------------------------------------------------------------
- | Articles
- |--------------------------------------------------------------------------
- */
+|--------------------------------------------------------------------------
+| Articles
+|--------------------------------------------------------------------------
+*/
+Route::resource( 'articles', 'ArticlesController' );
+Route::resource( 'tags', 'TagsController' );
 
 //Route::get( 'articles', 'ArticlesController@index' );
 //Route::get( 'articles/create', 'ArticlesController@create' );
@@ -42,11 +44,6 @@ Route::get( 'contact', [ 'middleware' => 'auth', 'uses' => 'PagesController@cont
 //Route::post( 'articles', 'ArticlesController@store' );
 //Route::get('articles/{id}/edit', 'ArticlesController@edit');
 
-Route::resource( 'articles', 'ArticlesController' );
-Route::resource( 'tags', 'TagsController' );
 
-Route::get( 'foo', [ 'middleware' => 'manager', function ()
-{
-    return 'manager';
-}
-] );
+// middleware "manager" defined in Kernel.php: 'manager' => 'App\Http\Middleware\RedirectIfNotAManager'
+Route::get( 'foo', [ 'middleware' => 'manager', 'uses' => 'FooController@foo' ] );

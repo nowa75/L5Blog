@@ -8,7 +8,8 @@ use App\Tag;
  *
  * @package App\Http\Controllers
  */
-class TagsController extends Controller {
+class TagsController extends Controller
+{
 
     /**
      * Display a listing of the resource.
@@ -47,10 +48,11 @@ class TagsController extends Controller {
      *
      * @return Response
      */
-    public function show( Tag $tags )
+    public function show( Tag $tag )
     {
+        $articles = $tag->articles()->published()->get();
 
-        dd( $tags->articles() );
+        return \View( 'articles.index', compact( 'articles' ) );
     }
 
     /**

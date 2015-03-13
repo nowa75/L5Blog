@@ -46,7 +46,7 @@ class Article extends Model {
 
 
     /**
-     * published_at as carbon instance
+     * published_at to tread as Carbon instance
      *
      * @var array
      */
@@ -62,6 +62,18 @@ class Article extends Model {
     {
         $this->attributes[ 'published_at' ] = Carbon::parse( $date );
 
+    }
+
+    /**
+     * return Carbon instance for create new article published_at date
+     *
+     * @param $date
+     *
+     * @return Carbon
+     */
+    public function getPublishedAtAttribute( $date )
+    {
+        return new Carbon( $date );
     }
 
     /**

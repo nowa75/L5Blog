@@ -9,7 +9,7 @@
         <h5>Tags:</h5>
         <div class="btn-group" role="group" aria-label="Tags:">
             @foreach($article->tags as $tag)
-                <a type="button" class="btn btn-default" href="{{url('tags',[$tag->name])}}">{{$tag->name}}</a>
+                <a type="button" class="btn btn-default" href="{{url('tags',[$tag->id])}}">{{$tag->name}}</a>
             @endforeach
         </div>
         <hr/>

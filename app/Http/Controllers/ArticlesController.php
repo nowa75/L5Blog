@@ -30,6 +30,7 @@ class ArticlesController extends Controller {
      */
     public function index()
     {
+        /** @noinspection PhpUndefinedMethodInspection */
         $articles = Article::published()->latest( 'published_at' )->get();
 
         return view( 'articles.index', compact( 'articles' ) );
@@ -49,7 +50,6 @@ class ArticlesController extends Controller {
 
     /**
      * wyświetla stronę do tworzenia Artykułu
-     *
      * @return \Illuminate\View\View
      */
     public function create()

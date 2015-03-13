@@ -14,7 +14,7 @@ class RedirectIfNotAManager {
      */
     public function handle( $request, Closure $next )
     {
-        if( ! $request->user()->isTeamManager())
+        if( ! $request->user() || ! $request->user()->isTeamManager())
         {
             return redirect( 'articles' );
         }
