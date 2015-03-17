@@ -145,7 +145,12 @@ return [
         'App\Providers\ConfigServiceProvider',
         'App\Providers\EventServiceProvider',
         'App\Providers\RouteServiceProvider',
-        'App\Providers\ViewComposerServiceProvider', //create nav bar
+
+        /*
+         * Create nav bar
+         */
+        'App\Providers\ViewComposerServiceProvider',
+        
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
         'Laracasts\Flash\FlashServiceProvider',
 
